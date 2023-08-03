@@ -57,9 +57,10 @@ body {
 }
 
 .square {
-  background: #fff;
-  border: 1px solid #999;
+  background: #2db794;
+  border: 1px solid #fcdfd6;
   float: left;
+  color: #fcdfd6; 
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
@@ -87,4 +88,23 @@ body {
 
 .game-info {
   margin-left: 20px;
+}
+
+.button{
+  background-color: #2db794;
+  border: none;
+  color: #fcdfd6;
+  padding: 2px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px; 
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.button:hover {
+  background-color: #fcdfd6;
+  color: #2db794;
 }
