@@ -25,6 +25,26 @@ function Square({value, onSquareClick}) {
   return <button className='square' onClick={onSquareClick}>{value}</button>
 }
 
+function generateBoard(squares, handleClick) {
+  const board = [];
+
+  for (let i = 0; i < 3; ++i) {
+    const row = [];
+    board.push();
+    for (let j = 0; j < 3; ++j) {
+      let index = i * 3 + j;
+
+      row.push(
+        <Square 
+          value={squares[index]} 
+          onSquareClick={() => handleClick(index)} />)
+    }
+    board.push(<div className='board-row'>{row}</div>);
+  }
+
+  return board;
+}
+
 function Board({xIsNext,squares, onPlay}) {  
   function handleClick(index) {
     const nextSquares = squares.slice();
@@ -49,25 +69,11 @@ function Board({xIsNext,squares, onPlay}) {
   } else {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
-  
-  return ( 
+
+  return (
     <div>
       <div className='status'>{status}</div>
-      <div className='board-row'>
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-      </div>
-      <div className='board-row'>
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-      </div>
-      <div className='board-row'>
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </div>
+      {generateBoard(squares, handleClick)}
     </div>
   );
 }
@@ -90,10 +96,11 @@ export default function Game() {
 
   const moves = history.map((squares, move) => {
     let description;
+
     if(move === currentMove) {
       description = `You\'re at move #${move + 1}`;
     } else if (move > 0) {
-      description = 'Go to move #' + move;
+      description = 'Go to move #' + (move + 1);
     } else {
       description = 'Go to game start';
     }
